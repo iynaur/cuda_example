@@ -23,7 +23,7 @@ include(CTest)
 #set_target_properties( particles
 #                       PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
-add_executable(vecadd answer.cu)
+add_executable(vecadd answer.cu main.cpp)
 
 set_property(TARGET vecadd
              PROPERTY CUDA_SEPARABLE_COMPILATION ON)
