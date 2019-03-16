@@ -7,11 +7,14 @@
 // Compute vector sum C = A+B
 //CUDA kernel. Each thread performes one pair-wise addition
 
-__global__ void vector_add(float *a, float *b, float *c)
+__global__ void vector_add(float *a, float *b, float *c, int N)
 {
     /* insert code to calculate the index properly using blockIdx.x, blockDim.x, threadIdx.x */
-	int index = blockIdx.x * blockDim.x + threadIdx.x;
-	c[index] = a[index] + b[index];
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+      int stride = blockDim.x * gridDim.x;
+      for (int i = index; i < N; i += stride)
+        c[i] = a[i] + b[i];
+
 }
 
 /* experiment with N */
@@ -35,7 +38,8 @@ void add(float *a, float *b, float *c, int N)
 
 	/* launch the kernel on the GPU */
 	/* insert the launch parameters to launch the kernel properly using blocks and threads */ 
-    vector_add<<< (N+THREADS_PER_BLOCK-1)/THREADS_PER_BLOCK, THREADS_PER_BLOCK >>>( d_a, d_b, d_c );
+//    vector_add<<< (N+THREADS_PER_BLOCK-1)/THREADS_PER_BLOCK, THREADS_PER_BLOCK >>>( d_a, d_b, d_c, N);
+    vector_add<<<1, 1 >>>( d_a, d_b, d_c, N);
 
     //Synchronize threads
     cudaThreadSynchronize();

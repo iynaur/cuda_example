@@ -7,7 +7,7 @@
 int main()
 {
     float *a, *b, *c;
-    int N = 100000;
+    int N = 1<<20;
     int size = N * sizeof( float );
     /* allocate space for device copies of a, b, c */
     /* allocate space for host copies of a, b, c and setup input values */
