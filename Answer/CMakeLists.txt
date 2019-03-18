@@ -24,10 +24,10 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #set_target_properties( particles
 #                       PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
-CUDA_ADD_EXECUTABLE(vecadd  main.cpp answer.cu)
+CUDA_ADD_EXECUTABLE(vecadd  main.cu answer.cu)
 
 set_property(TARGET vecadd
              PROPERTY CUDA_SEPARABLE_COMPILATION ON)
-#target_link_libraries(vecadd PRIVATE particles)
+target_link_libraries(vecadd -lGL -lSDL)
 
 
